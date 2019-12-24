@@ -1,0 +1,37 @@
+<!doctype html>
+<html style="min-width:500px;">
+  <head>
+    <title>Enter search terms</title>
+
+<style>
+button {
+  background-color: #4CAF50; /* Green */
+  border-color: black;
+  padding: 1px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 110%;
+}
+</style>
+  </head>
+
+  <body>
+      <h2> Welcome to the PoshMarker</h2>
+       How many items do you want to share? <input type="number" id="shareNum" value = '4' min = '1' max = '20' style = 'width: 20%;'>
+      <button id="btnShare" style = 'background-color:pink'>Share the Love</button>
+      <p></p>
+
+       <center> 
+           <div id = 'countDiv' style = 'display:inline-block; margin: 10px;'>
+               <span id = 'countSpan'>Count here</span> 
+           (<a href = '#' id = 'btnReset'>Reset</a>)
+       </div>
+       </center>
+
+    <script src="popup.js"></script>
+
+    <p></p>
+
+  </body>
+</html>
