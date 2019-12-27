@@ -14,16 +14,53 @@ function loadShareNum() {
             chrome.storage.local.set({'shareNumDate': d}); 
             count = 0;
         } 
-        
+      
         var str = 'You have shared <b>' + count + '</b> items since ' + d;
-        document.getElementById('countSpan').innerHTML = str;
+        document.getElementById('countSpan2').innerHTML = str;
 
     });
+
+
+    chrome.storage.local.get(['shareNumToday', 'shareNumDateToday'], function(result) {
+
+        var count = result.shareNumToday;
+        var d = result.shareNumDateToday;
+
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = mm + '/' + dd + '/' + yyyy;
+           
+        if (d != today) {
+            chrome.storage.local.set({'shareNumDateToday': today}); 
+            d = today;
+            count = undefined;
+        }
+
+        if (count == undefined) {
+            chrome.storage.local.set({'shareNumToday': 0}); 
+            count = 0;
+        }
+      
+        var str = 'You have shared <b>' + count + '</b> items today (' + d + ')';
+        document.getElementById('countSpan1').innerHTML = str;
+
+    });
+
 }
 
 function clearShareNum() {
-        chrome.storage.local.clear(function() {
-            loadShareNum();
+
+        chrome.storage.local.get(['shareNumToday', 'shareNumDateToday'], function(result) {
+
+            chrome.storage.local.clear(function() {
+                chrome.storage.local.set({'shareNumToday': result.shareNumToday});
+                chrome.storage.local.set({'shareNumDateToday': result.shareNumDateToday}); 
+                loadShareNum();
+            });
+
         });
 }
 

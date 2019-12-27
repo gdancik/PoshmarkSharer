@@ -79,10 +79,10 @@ async function getShares(n) { // We need to wrap the loop into an async function
 
 
     var shareCount  = document.getElementById('poshmarker-share-count');
-    if (shareCount == null) {
+    if (shareCount == null)  {
         div = document.createElement('div');
         div.style = 'position: fixed; bottom:0%; right: 0%; background-color:black; width: 20%; height: 5%; color:white;';
-        div.innerHTML = "<center><h3 id = 'poshmarker-share-count' style='padding:8px;'> Number of shares: 0 </h3></center>";
+        div.innerHTML = "<center><h3 id = 'poshmarker-share-count' style='padding:8px;'> Number of shares: 0 / " + n + "</h3></center>";
         document.body.appendChild(div);
         shareCount  = document.getElementById('poshmarker-share-count');
     }
@@ -92,7 +92,7 @@ async function getShares(n) { // We need to wrap the loop into an async function
     
         await share(shares, i, type);    
         // console.log('shared: ' + (i+1));
-        shareCount.innerHTML = 'Number of shares: ' + (i+1);
+        shareCount.innerHTML = 'Number of shares: ' + (i+1) + ' / ' + n;
      }
 
      chrome.storage.local.get(['shareNum', 'shareNumDate'], function(result) {
@@ -106,6 +106,19 @@ async function getShares(n) { // We need to wrap the loop into an async function
         count = count + n;
         chrome.storage.local.set({'shareNum': count});
     });
+
+     chrome.storage.local.get(['shareNumToday'], function(result) {
+
+        var count = result.shareNumToday;
+        if (count == undefined) {
+            count = 0;
+        }
+
+        count = count + n;
+        chrome.storage.local.set({'shareNumToday': count});
+
+     });
+
 }
 
 
