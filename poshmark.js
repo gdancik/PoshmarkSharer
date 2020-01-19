@@ -75,8 +75,7 @@ async function getShares(n) { // We need to wrap the loop into an async function
 		return;
 	}
     
-    n = Math.min(n, shares.length);
-
+    //n = Math.min(n, shares.length);
 
     var shareCount  = document.getElementById('poshmarker-share-count');
     if (shareCount == null)  {
@@ -89,7 +88,18 @@ async function getShares(n) { // We need to wrap the loop into an async function
 
 
     for (var i = 0; i < n; i++) {
-    
+   
+        if (i >= shares.length) {
+            window.scrollBy(0,200);
+            await sleep(1000 + Math.random()*1000);
+            shares = document.getElementsByClassName(className);
+            if (i >= shares.length) {
+                shareCount.innerHTML = 'Number of shares: ' + (i+1) + ' / ' + n + ' (no more found)';
+                n = i;
+                break;
+            }
+        }
+
         await share(shares, i, type);    
         // console.log('shared: ' + (i+1));
         shareCount.innerHTML = 'Number of shares: ' + (i+1) + ' / ' + n;
@@ -120,7 +130,6 @@ async function getShares(n) { // We need to wrap the loop into an async function
      });
 
 }
-
 
 
 
