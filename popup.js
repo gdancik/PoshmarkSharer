@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             } else {
 
-                document.body.innerHTML = '</br><h2> Welcome to the PoshMarker</h2>' +  
+                document.body.innerHTML = '</br><h2> Welcome to the PoshMarker Sharer</h2>' +  
                     '<p> To use this extension, please go to ' +  
                     '<a href = "https://poshmark.com" target="_blank">https://poshmark.com</a></p></br>';
 
